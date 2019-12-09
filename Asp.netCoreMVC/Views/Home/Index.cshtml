@@ -1,0 +1,32 @@
+﻿@model HomeViewModel
+@{
+    ViewBag.Title = "Home 控制器下的 Index 方法";
+}
+<div>这个消息来自 Home 控制器下的 Index 的视图文件 index.cshtml </div>
+<table>
+    <tbody>
+        @foreach (var item in Model.Employees)
+        {
+            @*<tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td><a href="/home/detail/@item.ID">Detail</a></td>
+                    <td>@Html.ActionLink("Detail", "Detail", "home", new { id = @item.ID })</td>
+                    <td><a asp-action="detail" asp-controller="home" asp-route-id="@item.ID">Detail</a></td>
+                </tr>*@
+
+
+        <tr>
+            <td>@Html.DisplayFor(m => item.ID)</td>
+            <td>@Html.DisplayFor(m => item.Name)</td>
+
+            <td>@Html.ActionLink("Detail", "Detail", "home", new { id = @item.ID })</td>
+            <td>@Html.ActionLink("Edit", "Edit", "home", new { id = @item.ID })</td>
+            <td>@Html.ActionLink("Delete", "Delete", "home", new { id = @item.ID })</td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Add", "Add", "Home")
+</div>

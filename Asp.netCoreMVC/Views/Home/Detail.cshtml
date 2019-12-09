@@ -1,0 +1,22 @@
+﻿@model Asp.netCoreMVC.Models.Employee
+
+@{
+    ViewBag.Title = "Home 控制器下的 Detail 方法";
+}
+<div>这个消息来自 Home 控制器下的 Detail 的视图文件 Detail.cshtml</div>
+<table>
+    <tr>
+        <td>员工编号</td>
+        <td>@Model.ID</td>
+    </tr>
+    <tr>
+        <td>员工姓名</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>员工年龄</td>
+        <td>@Model.Age</td>
+    </tr>
+</table>
+<p><a href="/">返回首页</a></p>
+

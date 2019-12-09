@@ -1,0 +1,24 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<h1>Signup</h1>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <div>
+        @Html.LabelFor(m => m.UserName)
+        @Html.EditorFor(m => m.UserName)
+        @Html.ValidationMessageFor(m => m.UserName)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.PassWord)
+        @Html.PasswordFor(m => m.PassWord)
+        @Html.ValidationMessageFor(m => m.PassWord)
+
+    </div>
+    <div>
+        <input type="submit" value="Register" />
+    </div>
+}

@@ -1,0 +1,21 @@
+﻿@model Employee
+@{
+    ViewBag.Title = $"Edit {Model.Name}";
+}
+<h1>Edit @Model.Name</h1>
+<form asp-action="Edit" method="post">
+   @Html.Hidden("ID",Model.ID)
+    <div>
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Age">Age</label>
+        <input asp-for="Age" />
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</form>
+

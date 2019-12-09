@@ -1,0 +1,22 @@
+﻿@model Employee
+@{
+    ViewBag.Title = "Add";
+}
+@using (Html.BeginForm("Add", "Home", FormMethod.Post))
+{
+    <div>
+        <p>
+            @Html.LabelFor(m => m.Name)
+            @Html.EditorFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Age)
+            @Html.EditorFor(m => m.Age)
+            @Html.ValidationMessageFor(m => m.Age)
+        </p>
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}

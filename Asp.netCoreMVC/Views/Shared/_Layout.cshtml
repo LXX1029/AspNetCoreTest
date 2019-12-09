@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div>
+                @User.Identity.Name
+                @using (Html.BeginForm("Signout", "Account", FormMethod.Post))
+                {
+                    <input type="submit" value="signout" />
+                }
+            </div>
+        }
+        else
+        {
+            @Html.ActionLink("Login", "Login", "Account")
+
+            @Html.ActionLink("Register", "Register", "Account")
+        }
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div style="vertical-align:bottom"><h4>Bottom--Bottom</h4></div>
+</body>
+</html>
