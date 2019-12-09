@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular-animate.min.js"></script>
+    <style>
+        #div1 {
+            transition:all linear 1s;
+            background-color:lightblue;
+            height:100px;
+        }
+        .ng-hide{
+            height:0;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div ng-app="myApp" ng-controller="formCtrl" class="form-group">
+        <h1>表单</h1>
+        <form name="myForm" novalidate  class="form-horizontal" >
+            <p>
+                Name:<input type="text" name="name" ng-model="user.name" required />
+                <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+                    <span ng-show="myForm.name.$error.required">用户名是必须的。</span>
+                </span>
+            </p>
+            <p>Age:<input type="text" ng-model="user.age" /></p>
+            <p>
+                <button type="submit">提交</button>  <button ng-click="Reset()">重置</button>
+            </p>
+        </form>
+        <h1>全局API</h1>
+        <h2>转换为小写</h2>
+        <p>{{x1}}---{{lowerStr}}</p>
+        <h2>转换为大写</h2>
+        <p>{{lowerStr}}---{{x2}}</p>
+        <h1>包含html页面</h1>
+        <div ng-include="'HtmlPage1.html'"></div>
+        <h1>简单动画</h1>
+        <div id="div1">
+            <input type="checkbox" ng-model="checked" /><br />
+            <p><div ng-hide="checked"></div></p>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../Scripts/AngularCode/code.js"></script>

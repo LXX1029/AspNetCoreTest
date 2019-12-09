@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp">
+        <div ng-controller="serviceController">
+            <input value="{{url}}" width="1000" />
+        </div>
+        <div ng-controller="httpController">
+            <input type="button" value="http" ng-click="GetHttp()" /><br />
+                                                                     <span>
+                                                                         {{htmlStr}}
+                                                                     </span>
+                                                                    
+        </div>
+       <div ng-controller="timeoutController">
+           Timeout:<span ng-bind="timeoutStr"></span>
+       </div>
+        <div ng-controller="intervalController">
+            Interval:<span ng-bind="timerStr"></span>
+        </div>
+        <div ng-controller="cserviceController">
+            <span ng-bind="hex"></span>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../Scripts/AngularCode/code.js"></script>

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WideWorldImporters.API</name>
+    </assembly>
+    <members>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.GetDataFromServices(Microsoft.Extensions.Logging.ILogger{WideWorldImporters.API.Controllers.WarehouseController})">
+            <summary>
+            从请求服务中绑定请求参数
+            </summary>
+            <param name="logger">logger 对象</param>
+            <returns>object</returns>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.Index">
+            <summary>
+            Index 页
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.WatchFile">
+            <summary>
+            自定义缓存过期策略-监控文件.
+            </summary>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.GetStockItemAsync(System.Int32)">
+            <summary>
+            获取单个StockItem
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:WideWorldImporters.API.DealException.CustomerExceptionFilter">
+            <summary>
+            自定义异常过滤
+            </summary>
+        </member>
+        <member name="M:WideWorldImporters.API.DealException.CustomerExceptionFilter.#ctor(Microsoft.Extensions.Logging.ILogger{WideWorldImporters.API.DealException.CustomerExceptionFilter},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            注入服务
+            </summary>
+            <param name="logger">日志</param>
+            <param name="environment">程序托管运行环境</param>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.StockItem">
+            <summary>
+            数据类
+            </summary>
+        </member>
+        <member name="P:WideWorldImporters.API.Models.StockItem.StockItemID">
+            <summary>
+            标识列
+            </summary>
+        </member>
+        <member name="P:WideWorldImporters.API.Models.StockItem.StockItemName">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.StockItemsConfiguration">
+            <summary>
+            StockItem 类映射
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.WideWorldImportersDbContext">
+            <summary>
+            DbContext
+            </summary>
+        </member>
+        <member name="M:WideWorldImporters.API.Models.WideWorldImportersDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            配置数据库
+            </summary>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="M:WideWorldImporters.API.Models.WideWorldImportersDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            根据Model创建数据库表
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.IRepository">
+            <summary>
+            公共操作接口
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.Repository">
+            <summary>
+            仓储类，提供虚方法
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.IWarehouseRepository">
+            <summary>
+            StockItem 操作接口
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.WarehouseRepository">
+            <summary>
+            StockItem 实现类
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.RepositoryExtensions">
+            <summary>
+            分页扩展
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.PostStockItemsRequest">
+            <summary>
+            新增时传递的实体
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.PutStockItemsRequest">
+            <summary>
+            修改时传递的实体
+            </summary>
+        </member>
+        <member name="M:WideWorldImporters.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WideWorldImporters.API.Startup"/> class.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+    </members>
+</doc>

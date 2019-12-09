@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/angular.min.js"></script>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div ng-app="myApp" ng-controller="htmlDomController">
+        <h1>绑定到Html的disabled属性</h1>
+        <p><input type="checkbox" ng-model="isChecked" />按钮</p>
+        <p>{{isChecked}}</p>
+        <p><button ng-disabled="isChecked">点击</button></p>
+        <h1>显示隐藏一个元素</h1>
+        <p><button ng-click="toggle()">显隐</button></p>
+        <p>
+            <div ng-show="isShow">
+                <span>隐藏区域</span>
+            </div>
+        </p>
+    </div>
+  
+</body>
+</html>
+<script src="../Scripts/AngularCode/code.js"></script>

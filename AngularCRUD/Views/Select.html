@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="selectController">
+        <h1>显示文本</h1>
+        使用ng-options:<select ng-init="selectedName=names[1]" ng-model="selectedName" ng-options="x for x in names"></select>
+        当前选择项：<span ng-bind="selectedName"></span><br />
+        使用ng-repeat：<select>
+            <option ng-repeat="n in names">{{n}}</option>
+        </select><br />
+        <h1>显示对象</h1>
+        <!--ng-options="m for m in sites" 显示对象-->
+        <select ng-init="selectedSite=sites[1]" ng-model="selectedSite" ng-options="m.site for m in sites"></select><br />
+        选择网址名称：<span ng-bind="selectedSite.site"></span>地址：<span ng-bind="selectedSite.url"></span>
+        <p>
+        <h2>数据源作为对象m为key，n为value</h2>
+                <select ng-model="selectedSiteObj" ng-options="n for (m,n) in sitesobject"></select><span>选择的值：{{selectedSiteObj}}</span>
+        </p>
+        <p>
+            <h2>value 值为一个对象</h2><!--m为key,n为对象-->
+            <select ng-model="selectedCar" ng-options="m for (m,n) in cars"></select><br />
+            <span>选择的car名称：{{selectedCar.name}}&nbsp;价格：{{selectedCar.price}}</span>
+        </p>
+
+    </div>
+</body>
+</html>
+<script src="../Scripts/AngularCode/code.js"></script>

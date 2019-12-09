@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="httpController">
+        <input type="button" value="Click" ng-click="GetHttp()" /><br />
+        <ul>
+            <li ng-repeat="n in htmlStr">
+                <span>{{n.Name}}</span>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="../Scripts/AngularCode/code.js"></script>

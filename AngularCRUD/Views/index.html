@@ -1,0 +1,176 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular.js"></script>
+
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("stockController", function ($scope, $http) {
+            debugger;
+            // 获取所有数据
+            $scope.GetAllData = function () {
+                debugger;
+                $http({
+                    method: "get",
+                    url: "http://localhost:5000/api/v1/Warehouse/GetStockItemsAsync"
+                }).then(function (response) {
+                    debugger;
+                    //alert(response.data);
+                    $scope.stocks = response.data.model;
+                }, function (ex) {
+                    debugger;
+                    alert("error!");
+                })
+            }
+
+            $scope.InsertData = function () {
+                var Action = document.getElementById("btnSave").getAttribute("Value");
+                if (Action == "新增保存") {
+                    $scope.StockItem = {};
+                    $scope.StockItem.StockItemName = $scope.StockItemName;
+                    $scope.StockItem.TaxRate = $scope.TaxRate;
+                    $http({
+                        method: "post",
+                        url: "http://localhost:5000/api/v1/Warehouse/PostStockItemAsync",
+                        dataType: "json",
+                        data: JSON.stringify($scope.StockItem),
+                    }).then(function (response) {
+                        alert(response.data.message);
+                        $scope.GetAllData();
+                        $scope.StockItemName = "";
+                        $scope.TaxRate = "";
+                    }, function (ex) {
+                        alert(ex.data.errorMessage);
+                    });
+                } else {
+                    // 修改
+                    $scope.StockItem = {};
+                    $scope.StockItem.StockItemName = $scope.StockItemName;
+                    $scope.StockItem.TaxRate = $scope.TaxRate;
+                    $scope.StockItem.StockItemID = $scope._stockId;
+                    $http({
+                        method: "put",
+                        url: "http://localhost:5000/api/v1/Warehouse/PutStockItemAsync",
+                        dataType: "json",
+                        data: JSON.stringify($scope.StockItem)
+                    }).then(function (response) {
+                        alert(response.data.message);
+                        $scope.GetAllData();
+                        $scope.StockItemName = "";
+                        $scope.TaxRate = "";
+                        }, function (res) {
+                            alert(res.data.message)
+                    });
+                    document.getElementById("btnSave").setAttribute("value", "新增保存");
+                    document.getElementById("span").innerHTML = "新增信息";
+                }
+
+            };
+
+            $scope.Delete = function (stock) {
+                //alert(stock.stockItemID);
+                $http({
+                    method: "post",
+                    dataType: "json",
+                    data: JSON.stringify(stock),
+                    url: "http://localhost:5000/api/v1/Warehouse/DeleteStockItemAsync"
+                }).then(function (response) {
+                    alert(response.data.message);
+                    $scope.GetAllData();
+                }, function (ex) {
+                    //alert(ex.data);
+                })
+            }
+            $scope.Update = function (stock) {
+               
+                if (stock != null) {
+                    //alert(stock.stockItemID);
+                    $scope._stockId = stock.stockItemID;
+                    //alert($scope._stockId);
+                    $scope.StockItemName = stock.stockItemName;
+                    $scope.TaxRate = stock.taxRate;
+                    document.getElementById("btnSave").setAttribute("value", "更新保存");
+                    document.getElementById("spn").innerHTML = "更新信息";
+                }
+            }
+        })
+    </script>
+</head>
+<body>
+    <h2>Index</h2>
+   
+    <div ng-app="myApp">
+
+        <div ng-controller="stockController" ng-init="GetAllData()" class="divList">
+            <p class="divider">StockItems 列表</p>
+            <!--<p>{{stocks.stockItemID}}----{{stocks.stockItemName}}</p>-->
+            <table cellpadding="12" class="table table-bordered table-hover">
+                <tr>
+                    <td>
+                        <b>Id</b>
+                    </td>
+                    <td>
+                        <b>
+                            Name
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            TaxRate
+                        </b>
+                    </td>
+                    <td>
+                        <b>Actions</b>
+                    </td>
+                </tr>
+                <tr ng-repeat="stock in stocks">
+                    <td>{{stock.stockItemID}}</td>
+                    <td>{{stock.stockItemName}}</td>
+                    <td>{{stock.taxRate}}</td>
+                    <td>
+                        <input type="button" class="btn btn-warning" value="更新" ng-click="Update(stock)" />
+                        <input type="button" class="btn btn-danger" value="删除" ng-click="Delete(stock)" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-horizontal" role="form">
+                <div class="container">
+                    <div class="row">
+                        <h2>
+                            <span id="spn">添加新项</span>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">StockItemName:</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputStockItemName" placeholder="StockItemName" ng-model="StockItemName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">TaxRate:</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputTaxRate"  placeholder="TaxRate" ng-model="TaxRate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-4">
+                            <input type="button" id="btnSave" class="form-control btn-space" value="新增保存" ng-click="InsertData()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input id="stockId" ng-model="_stockId" type="hidden" />
+    </div>
+</body>
+</html>
