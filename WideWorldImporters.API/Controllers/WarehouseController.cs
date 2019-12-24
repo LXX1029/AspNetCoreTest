@@ -390,7 +390,7 @@ namespace WideWorldImporters.API.Controllers
             }
             return response.ToHttpResponse();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> PostStockItemAsync([FromBody]StockItem item)
         {

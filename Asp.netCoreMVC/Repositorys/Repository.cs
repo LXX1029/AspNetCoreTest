@@ -23,7 +23,7 @@ namespace Asp.netCoreMVC.Repositorys
 
 
 
-    public class Repository<T> : IRepository<T>
+    public abstract class Repository<T> : IRepository<T>
         where T : class
     {
         private bool Disposed;

@@ -158,8 +158,8 @@ namespace Asp.netCoreMVC.Controllers
                     identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, userEntity.UserName));
 
                     var principal = new ClaimsPrincipal(identity);
-                    //var properties = new AuthenticationProperties();
-                    await this.HttpContext.SignInAsync(MyHandler.ApiScheme, principal);
+                    var properties = new AuthenticationProperties();
+                    await this.HttpContext.SignInAsync(MyHandler.ApiScheme, principal, properties);
                     var token = this.HttpContext.HttpApiToken();
                     if (!string.IsNullOrEmpty(token))
                     {

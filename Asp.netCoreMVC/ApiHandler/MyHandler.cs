@@ -35,6 +35,7 @@ namespace Asp.netCoreMVC.ApiHandler
         public const string ApiTokenKey = "Api.Token";
 
         private TicketDataFormat _dataformat;
+        //private IDataProtector
         private ILogger _logger = null;
         public MyHandler(IOptionsMonitor<ApiAuthenticationSchemeOption> options, IDataProtectionProvider dp, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
             : base(options, logger, encoder, clock)
@@ -70,7 +71,6 @@ namespace Asp.netCoreMVC.ApiHandler
         protected override Task HandleForbiddenAsync(AuthenticationProperties properties)
         {
             this.Context.Response.WriteAsync("403 forbidden......");
-
             return Task.CompletedTask;
             //return base.HandleForbiddenAsync(properties);
         }
@@ -90,6 +90,7 @@ namespace Asp.netCoreMVC.ApiHandler
             var unprotectToke = _dataformat.Unprotect(token);
             if (unprotectToke == null)
             {
+                //unprotectToke.Principal.Identity.Name;
                 await this.Context.Response.WriteAsync("toke data is null");
                 return AuthenticateResult.NoResult();
             }
@@ -105,7 +106,6 @@ namespace Asp.netCoreMVC.ApiHandler
 
             if (unprotectToke.Principal == null)
                 return AuthenticateResult.Fail("no principal");
-            await Task.FromResult(true);
             return AuthenticateResult.Success(unprotectToke);
 
 

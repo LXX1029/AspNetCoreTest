@@ -17,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 namespace Asp.netCoreMVC
 {
@@ -32,6 +34,8 @@ namespace Asp.netCoreMVC
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDataProtection().SetDefaultKeyLifetime(TimeSpan.FromDays(10));
+            //.PersistKeysToFileSystem(new DirectoryInfo(@"\\server\share\directory\"));
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
