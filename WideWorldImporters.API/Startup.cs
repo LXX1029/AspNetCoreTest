@@ -17,6 +17,7 @@ using NLog.Extensions.Logging;
 using WideWorldImporters.API.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace WideWorldImporters.API
 {
@@ -54,7 +55,8 @@ namespace WideWorldImporters.API
             });
 
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<WideWorldImportersDbContext>();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<WideWorldImportersDbContext>();
             // 注入仓储
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
 
@@ -101,10 +103,12 @@ namespace WideWorldImporters.API
             // 注入异常日志过滤器到容器[在Controller上使用  [ServiceFilter(typeof(CustomerExceptionFilter))]类过滤exception]
             //services.AddScoped<CustomerExceptionFilter>();
 
-            //services.AddMvc(options =>
-            //{
-            //    options.EnableEndpointRouting = false;
-            //}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+                options.OutputFormatters.Add(new ProtoBufFormatter());
+                //options.RespectBrowserAcceptHeader   // Accept 是否进行内容协商
+            });
 
 
 
@@ -199,6 +203,11 @@ namespace WideWorldImporters.API
                 });
                 options.Filters.Add(new CustomActionFilter());
                 options.Filters.Add(new CustomResultFilter());
+            }); //AddNewtonsoftJson
+
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
             });
         }
 
@@ -213,6 +222,7 @@ namespace WideWorldImporters.API
 
             #region 配置Nlog
             #endregion
+
             #region Mvc默认路由规则
             //app.UseMvc();
             //app.UseMvcWithDefaultRoute(); 

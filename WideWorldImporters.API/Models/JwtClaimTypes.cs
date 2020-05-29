@@ -10,4 +10,5 @@ namespace WideWorldImporters.API.Models
         public static string Name { get; set; } = "admin";
         public static string Role { get; set; } = "role1";
     }
+    
 }

@@ -33,16 +33,6 @@
             return context.User;
         }
 
-
-
-
-        //public static string HttpApiUserDevice(this ClaimsPrincipal user)
-        //{
-        //    if (user == null) return null;
-        //    var findClaim = user.FindFirst((claim) => claim.Type == ApiAuthenticationHandler.APIDeviceId);
-        //    return findClaim?.Value;
-        //}
-
         public static string HttpGetApiToken(this HttpContext context)
         {
             if (context == null) return null;
@@ -96,16 +86,14 @@
         private TicketDataFormat _format = null;
         private ILogger _log = null;
         private UserManager<IdentityUser> _userManager = null;
-        private IOptions<ServiceOption> _serviceOpt = null;
 
-        public ApiAuthenticationHandler(IOptionsMonitor<ApiAuthenticationOptions> options, UserManager<IdentityUser> userManager, IDataProtectionProvider dp, ILoggerFactory logger, IOptions<ServiceOption> serviceOpt, UrlEncoder encoder, ISystemClock clock)
+        public ApiAuthenticationHandler(IOptionsMonitor<ApiAuthenticationOptions> options, UserManager<IdentityUser> userManager, IDataProtectionProvider dp, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
             _log = logger.CreateLogger("ApiAuthenticationHandler");
             if (dp == null) return;
             _format = new TicketDataFormat(dp.CreateProtector("APIAuthentication"));
             _userManager = userManager;
-            _serviceOpt = serviceOpt;
         }
 
 
@@ -135,7 +123,7 @@
 
                     ClaimsPrincipal p = new ClaimsPrincipal(id);
                     AuthenticationTicket tiket = new AuthenticationTicket(p, APIScheme);
-                    this.Context.Items.Add(APIUserKey, tiket.Principal);
+                    this.Context.Items.Add(APIUserKey, _format.Protect(tiket));
                     return AuthenticateResult.Success(tiket);
                 }
                 return AuthenticateResult.Fail("暂无权限");//.NoResult();
@@ -205,9 +193,5 @@
             TokenQueryKey = "token";
             ExpireTime = TimeSpan.FromHours(5);
         }
-    }
-    public class ServiceOption
-    {
-        public bool IsInternetMode { get; set; } = false;
     }
 }

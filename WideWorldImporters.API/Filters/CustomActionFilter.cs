@@ -11,13 +11,14 @@ namespace WideWorldImporters.API.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            Console.WriteLine("Executing");
+
+            Console.WriteLine($"Action:{context.ActionDescriptor.DisplayName} Executing");
             //base.OnActionExecuting(context);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            Console.WriteLine("Executed");
+            Console.WriteLine($"Action:{context.ActionDescriptor.DisplayName} Executed");
             //base.OnActionExecuted(context);
         }
     }

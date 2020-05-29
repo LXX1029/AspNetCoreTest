@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using WideWorldImporters.API.ApiAuthentication;
+using WideWorldImporters.API.ApiAuthentication.Jwt;
 using WideWorldImporters.API.DealException;
 using WideWorldImporters.API.Filters;
 using WideWorldImporters.API.Models;
@@ -35,6 +36,7 @@ namespace WideWorldImporters.API.Controllers
         private const string API_ADD_SUCCESS = "新增成功";
         private const string API_UPDATE_SUCCESS = "更新成功";
         private const string API_NORECORD = "检索数据失败";
+
 
         private readonly ILogger Logger;
         private readonly IWarehouseRepository Repository;
@@ -54,6 +56,22 @@ namespace WideWorldImporters.API.Controllers
             this.sqlserverCache = sqlserverCache;
             this.dataProtectionProvider = dataProtectionProvider;
         }
+
+        [HttpPost]
+        public object Login([FromForm]string userName, [FromForm]string pwd)
+        {
+            if (string.IsNullOrEmpty(userName))
+                return new { code = -1, msg = "userName is null" };
+
+
+            return new { code = 0, msg = $"Successfully,Toke is {this.HttpContext.RetrieveJwtToke(userName)}" };
+        }
+
+
+
+
+
+
         [CustomResultFilter]
         [CustomActionFilter]
         [HttpGet]
@@ -79,7 +97,6 @@ namespace WideWorldImporters.API.Controllers
             return str;
         }
         #endregion
-
 
         #region Nlog
         [HttpGet]
@@ -147,10 +164,16 @@ namespace WideWorldImporters.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        //[Produces("application/proto")]
         public object Index()
         {
-            return new { Id = 100, count = 102402 };
+
+            return new ProtoBufModel { Id = 100, Name = "100" };
+
         }
+
+
+
         [HttpGet]
         public ActionResult login()
         {
