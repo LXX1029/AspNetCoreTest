@@ -58,6 +58,7 @@ namespace Asp.netCoreMVC
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = MyHandler.ApiScheme;
+               
             }).AddScheme<ApiAuthenticationSchemeOption, MyHandler>(MyHandler.ApiScheme, options =>
             {
                 if (int.TryParse(this.Configuration.GetSection("Api.ExpireDate").Value, out int time))
@@ -70,6 +71,12 @@ namespace Asp.netCoreMVC
 
             var config1 = this.Configuration.GetSection("UserLoginSettingOption");
             services.Configure<UserLoginSettingOption>(config1);
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

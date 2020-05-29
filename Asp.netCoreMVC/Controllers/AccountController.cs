@@ -265,6 +265,5 @@ namespace Asp.netCoreMVC.Controllers
                 return new { msg = $"error {ex.Message}" };
             }
         }
-
     }
 }

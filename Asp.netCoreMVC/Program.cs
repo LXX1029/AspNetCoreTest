@@ -29,15 +29,15 @@ namespace Asp.netCoreMVC
                     webBuilder.ConfigureServices((context, service) =>
                     {
                         context.HostingEnvironment.ContentRootPath = Directory.GetCurrentDirectory();
-                        //service.Configure<KestrelServerOptions>(options =>
-                        //{
-                        //    options.Limits.MinResponseDataRate = null;
-                        //    options.Listen(IPAddress.Any, int.Parse(context.Configuration["Port"]), listen =>
-                        //    {
-                        //        listen.UseHttps("AspNetCore.pfx", "123456");
+                        service.Configure<KestrelServerOptions>(options =>
+                        {
+                            options.Limits.MinResponseDataRate = null;
+                            options.Listen(IPAddress.Any, int.Parse(context.Configuration["Port"]), listen =>
+                            {
+                                listen.UseHttps("AspNetCore.pfx", "123456");
 
-                        //    });
-                        //});
+                            });
+                        });
                     });
                     //webBuilder.ConfigureKestrel((context, options) =>
                     //{
